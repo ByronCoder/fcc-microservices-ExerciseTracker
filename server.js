@@ -35,7 +35,8 @@ app.post('/api/exercise/add', (req, res) => {
   
   var exerciseData = new Exercise(req.body);
   var userId = exerciseData.userId;
- 
+  if(!req.body.date) exerciseData.date = new Date();
+  
   User.count({_id: userId}, function (err, count) {
     if(count > 0) {
       exerciseData.save()
